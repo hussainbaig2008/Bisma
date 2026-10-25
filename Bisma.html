@@ -1,0 +1,364 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!DOCTYPE html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Bisma Baig!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff85a1;
+            --secondary-pink: #fbb1bd;
+            --accent-gold: #f9d423;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe4e9 100%);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .font-dancing {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-pink);
+            top: -10px;
+            z-index: 0;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+        }
+
+        .gift-box {
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        /* Cake Styles */
+        .cake {
+            position: relative;
+            width: 250px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        .cake-bottom {
+            width: 250px;
+            height: 120px;
+            background: #f4d03f;
+            border-radius: 120px / 60px;
+            position: absolute;
+            bottom: 0;
+            box-shadow: 0 10px 0 #d4ac0d;
+        }
+        .cake-middle {
+            width: 250px;
+            height: 120px;
+            background: #f4d03f;
+            border-radius: 120px / 60px;
+            position: absolute;
+            bottom: 30px;
+        }
+        .cake-top {
+            width: 250px;
+            height: 120px;
+            background: #fdf2e9;
+            border-radius: 120px / 60px;
+            position: absolute;
+            bottom: 60px;
+            border-bottom: 5px solid #f4d03f;
+        }
+        .candle {
+            width: 12px;
+            height: 50px;
+            background: #ff85a1;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 4px;
+            z-index: 10;
+        }
+        .flame {
+            width: 15px;
+            height: 25px;
+            background: #ff9d00;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flicker 0.6s infinite alternate;
+            cursor: pointer;
+        }
+        @keyframes flicker {
+            from { transform: translateX(-50%) scale(1); opacity: 0.9; }
+            to { transform: translateX(-50%) scale(1.1); opacity: 1; }
+        }
+        .flame.blown-out {
+            display: none;
+        }
+
+        /* Timeline Styles */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #ff85a1;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800">
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+        <div class="z-10">
+            <h2 class="text-2xl md:text-3xl text-pink-500 font-semibold mb-2">Happiest Birthday to</h2>
+            <h1 class="text-6xl md:text-8xl font-dancing text-pink-600 mb-6 animate-float">Bisma Baig</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-lg mx-auto leading-relaxed">
+                Wishing you a day filled with laughter, love, and all the things that make you smile. 
+                You deserve the world!
+            </p>
+            <div class="mt-10 flex flex-wrap gap-4 justify-center">
+                <button onclick="revealSurprise()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all transform hover:-translate-y-1">
+                    Tap for a Surprise 🎁
+                </button>
+                <a href="#wishWall" class="bg-white border-2 border-pink-500 text-pink-500 hover:bg-pink-50 font-bold py-3 px-8 rounded-full shadow-lg transition-all transform hover:-translate-y-1">
+                    Read Messages 💌
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative Circles -->
+        <div class="absolute top-10 left-10 w-32 h-32 bg-pink-200 rounded-full blur-3xl opacity-50"></div>
+        <div class="absolute bottom-20 right-10 w-48 h-48 bg-pink-300 rounded-full blur-3xl opacity-50"></div>
+    </section>
+
+    <!-- Milestone Section -->
+    <section class="py-20 px-4 bg-white/30">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-3xl font-bold text-center mb-16 text-pink-600">The Bisma Baig Journey</h3>
+            <div class="space-y-12 relative">
+                <div class="flex items-center w-full mb-8">
+                    <div class="w-1/2 pr-8 text-right">
+                        <h4 class="text-xl font-bold text-pink-500">The Beginning</h4>
+                        <p class="text-gray-600">A star was born, bringing light into our lives.</p>
+                    </div>
+                    <div class="w-10 h-10 bg-pink-400 rounded-full border-4 border-white z-10"></div>
+                    <div class="w-1/2 pl-8"></div>
+                </div>
+                <div class="flex items-center w-full mb-8">
+                    <div class="w-1/2 pr-8"></div>
+                    <div class="w-10 h-10 bg-pink-300 rounded-full border-4 border-white z-10"></div>
+                    <div class="w-1/2 pl-8 text-left">
+                        <h4 class="text-xl font-bold text-pink-500">Amazing Memories</h4>
+                        <p class="text-gray-600">Growing up and making every moment count.</p>
+                    </div>
+                </div>
+                <div class="flex items-center w-full mb-8">
+                    <div class="w-1/2 pr-8 text-right">
+                        <h4 class="text-xl font-bold text-pink-500">Today</h4>
+                        <p class="text-gray-600">Celebrating the incredible person you've become!</p>
+                    </div>
+                    <div class="w-10 h-10 bg-pink-500 rounded-full border-4 border-white z-10 animate-pulse"></div>
+                    <div class="w-1/2 pl-8"></div>
+                </div>
+                <div class="absolute h-full w-1 bg-pink-100 left-1/2 transform -translate-x-1/2 top-0 -z-0"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wish Wall -->
+    <section id="wishWall" class="py-20 px-4 bg-white/50">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-3xl font-bold text-center mb-12 text-pink-600">Messages for You</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 shadow-sm border-l-4 border-pink-400">
+                    <p class="italic text-gray-700">"To the most wonderful sister/friend! May your year be as bright as your smile. Stay blessed always, Bisma Baig!"</p>
+                    
+                </div>
+                <div class="glass-card p-6 shadow-sm border-l-4 border-pink-400">
+                    <p class="italic text-gray-700">"Happy Birthday Bisma Baig! You bring so much joy to everyone around you. Have an amazing celebration!"</p>
+                    
+                </div>
+                <div class="glass-card p-6 shadow-sm border-l-4 border-pink-400">
+                    <p class="italic text-gray-700">"May this year bring you all the success you've been working so hard for. You're an inspiration!"</p>
+                    
+                </div>
+                <div class="glass-card p-6 shadow-sm border-l-4 border-pink-400">
+                    <p class="italic text-gray-700">"Keep glowing and growing. The world is yours to conquer!"</p>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cake Section -->
+    <section class="py-20 px-4 text-center bg-pink-50">
+        <h3 class="text-3xl font-bold mb-12 text-pink-600">Make a Wish, Bisma Baig!</h3>
+        <p class="mb-8 text-gray-500">Click the flame to blow out the candle</p>
+        <div class="cake">
+            <div class="cake-bottom"></div>
+            <div class="cake-middle"></div>
+            <div class="cake-top"></div>
+            <div class="candle">
+                <div id="cakeFlame" class="flame" onclick="blowCandle()"></div>
+            </div>
+        </div>
+        <div id="wishMessage" class="mt-12 opacity-0 transition-opacity duration-1000">
+            <h4 class="text-2xl font-dancing text-pink-600">Your wish is being sent to the stars... ✨</h4>
+        </div>
+    </section>
+
+    <!-- Bucket List Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-xl mx-auto glass-card p-8">
+            <h3 class="text-2xl font-bold text-center mb-8 text-pink-600">Next Chapter Bucket List ✍️</h3>
+            <ul class="space-y-4">
+                <li class="flex items-center gap-3">
+                    <input type="checkbox" checked class="accent-pink-500 w-5 h-5">
+                    <span class="text-gray-700 line-through">Have the best birthday ever</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <input type="checkbox" class="accent-pink-500 w-5 h-5">
+                    <span class="text-gray-700">Travel to a dream destination</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <input type="checkbox" class="accent-pink-500 w-5 h-5">
+                    <span class="text-gray-700">Start a new creative project</span>
+                </li>
+                <li class="flex items-center gap-3">
+                    <input type="checkbox" class="accent-pink-500 w-5 h-5">
+                    <span class="text-gray-700">Stay happy and healthy</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Interactive Gift Section -->
+    <section class="py-20 px-4 text-center bg-white/30">
+        <h3 class="text-3xl font-bold mb-8 text-pink-600">A Little Something for You</h3>
+        <div class="gift-box inline-block bg-white p-8 rounded-3xl shadow-xl border-2 border-pink-100" onclick="showGift()">
+            <div class="text-6xl mb-4">🎁</div>
+            <p class="text-pink-500 font-semibold uppercase tracking-widest">Open Me</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 text-center text-gray-400 text-sm">
+        <p>Made by Hussain Baig for Bisma Baig❤️</p>
+        <p>&copy; 2026 Special Birthday Wishes</p>
+    </footer>
+
+    <!-- Surprise Modal -->
+    <div id="giftModal" class="modal" onclick="closeModal()">
+        <div class="glass-card p-10 max-w-md w-full text-center relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">✕</button>
+            <div class="text-6xl mb-6">🎂</div>
+            <h4 class="text-2xl font-bold text-pink-600 mb-4">You are Amazing!</h4>
+            <p class="text-gray-600 mb-6">May your year be filled with success, good health, and infinite happiness. Keep shining, Bisma Baig!</p>
+            <button onclick="closeModal()" class="bg-pink-500 text-white px-6 py-2 rounded-full">Thank You!</button>
+        </div>
+    </div>
+
+    <script>
+        // Confetti Creation
+        function createConfetti() {
+            const colors = ['#ff85a1', '#fbb1bd', '#f9d423', '#70e000', '#00b4d8'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    confetti.style.opacity = Math.random();
+                    document.body.appendChild(confetti);
+
+                    // Remove after animation
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 100);
+            }
+        }
+
+        function blowCandle() {
+            const flame = document.getElementById('cakeFlame');
+            const message = document.getElementById('wishMessage');
+            flame.classList.add('blown-out');
+            message.classList.remove('opacity-0');
+            createConfetti();
+        }
+
+        function revealSurprise() {
+            createConfetti();
+            const btn = event.target;
+            btn.innerText = "Enjoy Your Day! ✨";
+            btn.disabled = true;
+        }
+
+        function showGift() {
+            document.getElementById('giftModal').classList.add('active');
+            createConfetti();
+        }
+
+        function closeModal() {
+            document.getElementById('giftModal').classList.remove('active');
+        }
+
+        // Auto-run confetti on load
+        window.onload = () => {
+            setTimeout(createConfetti, 500);
+        };
+    </script>
+</body>
+</html>
